@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.money_mate_server.mapper.ExpenseMapper">
+
+    <!-- 전체 조회 -->
+    <select id="getAllExpenses" resultType="com.example.money_mate_server.model.Expense">
+        SELECT * FROM expenses
+    </select>
+
+    <!-- 카테고리별 조회 -->
+    <select id="getExpensesByCategory" resultType="com.example.money_mate_server.model.Expense">
+        SELECT * FROM expenses WHERE category = #{category} 
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <!-- 삽입 -->
+    <insert id="insertExpense" parameterType="com.example.money_mate_server.model.Expense" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO expenses (category, title, amount, payer)
+        VALUES (#{category}, #{title}, #{amount}, #{payer})
+    </insert>
+
+    <!-- 삭제 -->
+    <delete id="deleteExpense">
+        DELETE FROM expenses WHERE id = #{id}
+    </delete>
+
+    <!-- 수정 -->
+    <update id="updateExpense" parameterType="com.example.money_mate_server.model.Expense">
+        UPDATE expenses
+        SET category = #{category},
+            title = #{title},
+            amount = #{amount},
+            payer = #{payer}
+        WHERE id = #{id}
+    </update>
+
+</mapper>

@@ -1,0 +1,21 @@
+.home {
+  font-weight: bold;
+  font-size: 48px;
+  color: #e29cc3;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* 텍스트 그림자 */
+  letter-spacing: 1px;
+  animation: fadeIn 2s ease-out; /* 애니메이션 */
+}
+
+.category {
+    padding: 12px 50px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.category .MButton {
+    cursor: pointer;
+}

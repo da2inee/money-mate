@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.money_mate_server.mapper.BudgetMapper">
+
+    <!-- 예산 저장 -->
+    <insert id="insertBudget" parameterType="com.example.money_mate_server.model.Budget">
+        INSERT INTO budgets (category, totalAmount)
+        VALUES (#{category}, #{totalAmount})
+    </insert>
+
+    <!-- 예산 수정 -->
+    <update id="updateBudget" parameterType="com.example.money_mate_server.model.Budget">
+        UPDATE budgets
+        SET totalAmount = #{totalAmount}
+        WHERE category = #{category}
+    </update>
+
+    <!-- 카테고리별 예산 조회 -->
+    <select id="getBudgetByCategory" resultType="com.example.money_mate_server.model.Budget">
+        SELECT * FROM budgets WHERE category = #{category}
+    </select>
+
+</mapper>

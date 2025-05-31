@@ -1,0 +1,6 @@
+.budgetlist {
+    flex-direction: column;
+    align-items: center;    
+    justify-content: center; /* 수직 가운데 정렬 (필요 시) */
+    text-align: center; /* 텍스트도 가운데 정렬 */
+}
