@@ -19,11 +19,10 @@ public class ExpenseService {
         return expenseMapper.getAllExpenses();
     }
 
-    public List<Expense> getExpensesByCategory(String category,int offset, int limit) {
-        System.out.println("ㅎㄷㅅ"+offset);
-        System.out.println("ㅎㄷㅅ3"+limit);
+    public List<Expense> getExpensesByCategory(String category) {
+
         
-        return expenseMapper.getExpensesByCategory(category, offset, limit);
+        return expenseMapper.getExpensesByCategory(category);
     }
 
     public Expense saveExpense(Expense expense) {

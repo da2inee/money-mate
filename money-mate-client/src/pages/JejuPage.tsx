@@ -24,11 +24,24 @@ const JejuPage: React.FC = () => {
   //지출내역을 저장하는 상태(expenses)를 생성하고, 초기값은 빈 배열임
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [budget, setBudget] = useState<number>(0); // 예산 상태 추가
-  const [pageNum, setPageNum] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
   const loaderRef = useRef<HTMLDivElement | null>(null);
   const [totalSpent,setTotalSpent] =useState(0);
   const navigate = useNavigate();
+  console.log('지출',expenses);
+
+  const getTotalPerPerson = (expenses: Expense[]) => {
+    const result: { [name: string]: number } = {};
+
+    expenses.forEach(({ payer, amount }) => {
+      result[payer] = (result[payer] || 0) + amount;
+    });
+
+    return result;
+  };
+
+  const totalPerPerson = getTotalPerPerson(expenses);
+
+
    // 컴포넌트 마운트 시 지출 목록 불러오기
    // useEffect는 컴포넌트가 처음 마운트될 때 한 번 실행됨
    // getExpenses()를 호출해 목록을 가져오고, setExpenses()로 상태를 갱신합니다.
@@ -36,8 +49,7 @@ const JejuPage: React.FC = () => {
     if (category) {  // category가 존재할 때만 실행
       const fetchExpenses = async () => {
         try {
-          const data = await getExpenses(category, pageNum, PAGE_SIZE );  // 서버에서 목록 가져오기
-          if (data.length < PAGE_SIZE) setHasMore(false);
+          const data = await getExpenses(category );  // 서버에서 목록 가져오기
             setExpenses((prev) => {      
               const merged = [...prev, ...data];
               const unique = Array.from(new Map(merged.map(item => [item.id, item])).values());
@@ -65,7 +77,7 @@ const JejuPage: React.FC = () => {
     } else {
       console.log('category가 정의되지 않았습니다.');  // category가 없을 경우 로그 출력
     }
-  }, [pageNum, category]);
+  }, [category]);
   
   
   
@@ -90,22 +102,6 @@ const JejuPage: React.FC = () => {
       console.error('지출 추가 실패', err);
     }
   };
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasMore) {
-          setPageNum((prev) => {return prev + 1});
-        }
-      },
-      { rootMargin: '100px',  // 스크롤 100px 남았을 때 미리 로딩 시도
-        threshold: 0.1}
-    );
-    const target = loaderRef.current;
-    if (target) observer.observe(target);
-    return () => {
-      if (target) observer.unobserve(target);
-    };
-  }, [hasMore]);
 
   return (
     <div className='top'>
@@ -118,12 +114,17 @@ const JejuPage: React.FC = () => {
       {category && <BudgetList category={category} budget={budget} setBudget={setBudget} totalSpent={totalSpent}/>} 
       <ExpenseForm onAdd={handleAddExpense} />
       <ExpenseList setTotalSpent={setTotalSpent} budget={budget} expenses={expenses} onDelete={async () => {
-        setPageNum(1);
-        const resetData = await getExpenses(category, 1, PAGE_SIZE);
+        const resetData = await getExpenses(category);
         setExpenses(resetData);
-        setHasMore(true);
-      }} />
+              }} />
       <div ref={loaderRef} />
+      <button className='result'>
+          {Object.entries(totalPerPerson).map(([name, total]) => (
+            <li key={name}>
+              {name}: {total.toLocaleString()}원
+            </li>
+          ))}
+        </button>
     </div>
   );
 };

@@ -20,15 +20,12 @@ public class ExpenseController {
     // (1) 전체 지출 혹은 카테고리별 지출 조회
     @GetMapping
     public List<Expense> getExpenses(
-        @RequestParam(required = false) String category,
-        @RequestParam int pageNum,
-        @RequestParam int pageSize
+        @RequestParam(required = false) String category
         ) {
-            int offset = (pageNum - 1) * pageSize;
         System.out.println(category);
         if (category != null ) {
             //System.out.println("ㅇㄴ"+category);
-            return expenseService.getExpensesByCategory(category,offset, pageSize);
+            return expenseService.getExpensesByCategory(category);
         }
         System.out.println("호ㅏㄱ이니런ㅇㄹsc");
         return expenseService.getAllExpenses();

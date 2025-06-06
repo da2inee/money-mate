@@ -24,9 +24,9 @@ export const addExpense = async (expense: ExpenseRequest): Promise<void> => {
 };
   
 
-export const getExpenses = async (category?: string, pageNum?: number, pageSize?: number): Promise<ExpenseResponse[]> => {
+export const getExpenses = async (category?: string): Promise<ExpenseResponse[]> => {
     const response = await axios.get(`${API_BASE_URL}/expenses`, {
-      params: category ? { category, pageNum, pageSize } : {},
+      params: category ? { category } : {},
     });
     return response.data;
 };

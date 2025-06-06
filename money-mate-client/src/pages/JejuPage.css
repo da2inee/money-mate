@@ -13,3 +13,9 @@
     color: skyblue;
     width: 100%;
 }
+
+.result{
+    background-color:bisque;
+    box-shadow: none;
+    text-shadow: none;
+}

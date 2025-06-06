@@ -63,7 +63,7 @@ console.log('asdf',remain);
         <div>
           <p>예산 : {budget.toLocaleString()}원</p>
           <button onClick={() => setIsEditing(true)}>예산 수정하기</button>
-          <div>{remain}</div>
+          <div className='rest'>남은 예산 : {remain}</div>
         </div>
       )}
 

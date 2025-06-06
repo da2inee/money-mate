@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface ExpenseMapper {
     List<Expense> getAllExpenses();
-    List<Expense> getExpensesByCategory(@Param("category") String category, @Param("offset")int offset, @Param("limit")int limit);
+    List<Expense> getExpensesByCategory(@Param("category") String category);
     void insertExpense(Expense expense);
     void deleteExpense(int id);
     void updateExpense(Expense expense);
