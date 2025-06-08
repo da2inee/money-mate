@@ -106,9 +106,10 @@ const JejuPage: React.FC = () => {
   return (
     <div className='top'>
     <MButton               
-      label='<뒤로가기'
+      label='뒤로가기'
       variant="BACK"
       onClick={() => navigate(-1)}
+      sx={{marginTop:'10px'}}
     />
       <h1 className='title'>{category?.toUpperCase()} 여행 지출 관리</h1>
       {category && <BudgetList category={category} budget={budget} setBudget={setBudget} totalSpent={totalSpent}/>} 

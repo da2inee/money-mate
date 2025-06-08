@@ -4,6 +4,8 @@ import Button from '@mui/material/Button';
 import { SxProps } from '@mui/system';
 import { Theme } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'; // 추가
+
 
 type ButtonVariant = 'BACK' | 'CATEGORY' | 'DESCRIPTION' | 'NEXT' | 'CORRECT' | 'PRIMARY'; 
 
@@ -23,12 +25,17 @@ const variantStyles: Record<ButtonVariant, SxProps<Theme>> = {
     },
   },
   BACK: {
-    backgroundColor: '#e0e0e0',  //연회색
-    color: '#000',  //텍스트 색 검정
-    display: "flex",
-    alignSelf:"flex-start",
+    color: grey[800],
+    border: '1px solid #ccc',
+    backgroundColor: 'transparent',
+    fontSize: '15px',
+    padding: '6px 12px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '6px',
+    justifyContent: 'left',
     '&:hover': {
-      backgroundColor: '#bdbdbd', //hover시 조금 더 진한 회색
+      backgroundColor: grey[200],
     },
   },
   DESCRIPTION: {
@@ -64,8 +71,9 @@ const variantStyles: Record<ButtonVariant, SxProps<Theme>> = {
 const MButton: React.FC<MButtonProps>  = ({label, onClick,sx, variant='PRIMARY'}) => {
   return (
         <Button
-        variant="contained"
+        variant="text"
         onClick={onClick}
+        startIcon={variant==='BACK'?<ArrowBackIcon/>:undefined}
         sx={{
             width: '200px',
             height: '50px',
