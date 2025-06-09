@@ -4,6 +4,7 @@ import { createBudget, getBudgets, updateBudget } from '../api/budgetApi';
 import './BudgetList.css'
 import ExpenseList from './ExpenseList';
 import { ExpenseListProps } from './ExpenseList';
+import EditIcon from '@mui/icons-material/Edit';
 
 export interface BudgetListProps {
   category: string;
@@ -16,6 +17,7 @@ const BudgetList: React.FC<BudgetListProps> = ({ category, budget, setBudget,tot
   const [isEditing, setIsEditing] = useState<boolean>(budget === 0); // 예산이 없으면 편집 모드
   const [spndPrice, setSpndPrice] = useState<number>(0);
   const [expenses, setExpenses] = useState([]); // 🔥 지출 데이터 상태 추가
+
   console.log('dd',totalSpent);
   useEffect(() => {
     setIsEditing(budget === 0);
@@ -50,6 +52,7 @@ console.log('asdf',remain);
     <div className='budgetlist'>
       <h2>{category} 카테고리 예산</h2>
       {isEditing ? (
+        <>
         <div>
           <input
             type="number"
@@ -58,10 +61,14 @@ console.log('asdf',remain);
             onChange={(e) => setInputAmount(Number(e.target.value))}
           />
           <button onClick={handleSave}>저장</button>
+          
         </div>
+        <button onClick={() =>setIsEditing(false)} >수정 안하기</button>
+        </>
       ) : (
         <div>
           <p>예산 : {budget.toLocaleString()}원</p>
+          <EditIcon/>
           <button onClick={() => setIsEditing(true)}>예산 수정하기</button>
           <div className='rest'>남은 예산 : {remain}</div>
         </div>

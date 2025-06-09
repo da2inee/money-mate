@@ -6,7 +6,6 @@ import { Theme } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'; // 추가
 
-
 type ButtonVariant = 'BACK' | 'CATEGORY' | 'DESCRIPTION' | 'NEXT' | 'CORRECT' | 'PRIMARY'; 
 
 interface MButtonProps {
