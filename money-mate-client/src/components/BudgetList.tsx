@@ -17,16 +17,9 @@ const BudgetList: React.FC<BudgetListProps> = ({ category, budget, setBudget,tot
   const [isEditing, setIsEditing] = useState<boolean>(budget === 0); // 예산이 없으면 편집 모드
   const [spndPrice, setSpndPrice] = useState<number>(0);
   const [expenses, setExpenses] = useState([]); // 🔥 지출 데이터 상태 추가
-
-  console.log('dd',totalSpent);
-  useEffect(() => {
-    setIsEditing(budget === 0);
-  }, [budget]);
-
-  console.log(isEditing)
-  console.log(typeof(budget))
-  console.log(budget);
   const [inputAmount, setInputAmount] = useState<number>(budget);
+  const remain = budget - totalSpent;
+
   const handleSave = async () => {
     try {
       if (budget === 0) {
@@ -43,11 +36,12 @@ const BudgetList: React.FC<BudgetListProps> = ({ category, budget, setBudget,tot
     } catch (error) {
       console.error('예산 저장 실패', error);
     }
-    console.log("편집" + isEditing)
   };
-console.log('spndPrice',spndPrice);
-  const remain = budget - totalSpent;
-console.log('asdf',remain);
+
+  useEffect(() => {
+    setIsEditing(budget === 0);
+  }, [budget]);
+
   return (
     <div className='budgetlist'>
       <h2>{category} 카테고리 예산</h2>

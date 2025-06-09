@@ -27,7 +27,6 @@ const JejuPage: React.FC = () => {
   const loaderRef = useRef<HTMLDivElement | null>(null);
   const [totalSpent,setTotalSpent] =useState(0);
   const navigate = useNavigate();
-  console.log('지출',expenses);
 
   const getTotalPerPerson = (expenses: Expense[]) => {
     const result: { [name: string]: number } = {};
@@ -40,7 +39,6 @@ const JejuPage: React.FC = () => {
   };
 
   const totalPerPerson = getTotalPerPerson(expenses);
-
 
    // 컴포넌트 마운트 시 지출 목록 불러오기
    // useEffect는 컴포넌트가 처음 마운트될 때 한 번 실행됨
@@ -55,10 +53,8 @@ const JejuPage: React.FC = () => {
               const unique = Array.from(new Map(merged.map(item => [item.id, item])).values());
               return unique;
             });   // 상태에 저장
-          console.log("ㅁㄴㅇㄹ"+data)
           // 예산 가져오기
           const budgetData = await getBudgets(category); // 예산 데이터 가져오기
-          console.log('budgetData:', budgetData);  // 예산 데이터 확인
   
           // budgetData가 객체 형태라면
           if (budgetData && budgetData.totalAmount !== undefined) {
