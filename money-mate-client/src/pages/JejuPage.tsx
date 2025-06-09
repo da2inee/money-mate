@@ -100,30 +100,63 @@ const JejuPage: React.FC = () => {
   };
 
   return (
-    <div className='top'>
-    <MButton               
-      label='뒤로가기'
-      variant="BACK"
-      onClick={() => navigate(-1)}
-      sx={{marginTop:'10px'}}
-    />
-      <h1 className='title'>{category?.toUpperCase()} 여행 지출 관리</h1>
-      {category && <BudgetList category={category} budget={budget} setBudget={setBudget} totalSpent={totalSpent}/>} 
-      <ExpenseForm onAdd={handleAddExpense} />
-      <ExpenseList setTotalSpent={setTotalSpent} budget={budget} expenses={expenses} onDelete={async () => {
-        const resetData = await getExpenses(category);
-        setExpenses(resetData);
-              }} />
-      <div ref={loaderRef} />
-      <button className='result'>
-          {Object.entries(totalPerPerson).map(([name, total]) => (
-            <li key={name}>
-              {name}: {total.toLocaleString()}원
-            </li>
-          ))}
-        </button>
+  <div className="jeju-page-container">
+    <div className="header">
+      <div className="back-button">
+        <MButton label="뒤로가기" variant="BACK" onClick={() => navigate(-1)}
+          sx={{
+            fontSize: '14px',
+            padding: '4px 8px',
+            minWidth: 'auto',
+            height: '32px',
+          }} />
+      </div>
+      <h1 className="title">{category?.toUpperCase()} 여행 지출 관리</h1>
     </div>
-  );
+
+
+    <div className="budget-expense-section">
+      {category && (
+        <BudgetList
+          category={category}
+          budget={budget}
+          setBudget={setBudget}
+          totalSpent={totalSpent}
+        />
+      )}
+
+      <ExpenseForm onAdd={handleAddExpense} />
+    </div>
+
+    <div className="expense-list-wrapper">
+      <h2>지출 내역</h2>
+      <ExpenseList
+        setTotalSpent={setTotalSpent}
+        budget={budget}
+        expenses={expenses}
+        onDelete={async () => {
+          const resetData = await getExpenses(category);
+          setExpenses(resetData);
+        }}
+      />
+    </div>
+
+    <div className="summary-section">
+      <h2>💰 정산 요약</h2>
+      <ul className="summary-list">
+        {Object.entries(totalPerPerson).map(([name, total]) => (
+          <li key={name} className="summary-item">
+            <span>{name}</span>
+            <span>{total.toLocaleString()}원</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div ref={loaderRef} />
+  </div>
+);
+
 };
 
 export default JejuPage;
