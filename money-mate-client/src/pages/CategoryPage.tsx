@@ -7,7 +7,7 @@ const CategoryPage: React.FC = () => {
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
       <h1>{categoryName} 관리 페이지</h1>
-      {/* 여기서 추가 기능 (비행기, 정산 등) 추가 */}
+      {/*  여기서 추가 기능 (비행기, 정산 등) 추가 */}
     </div>
   );
 };
