@@ -23,7 +23,7 @@ const JejuPage: React.FC = () => {
   const { category } = useParams<{ category:string }>();
   //지출내역을 저장하는 상태(expenses)를 생성하고, 초기값은 빈 배열임
   const [expenses, setExpenses] = useState<Expense[]>([]);
-  const [budget, setBudget] = useState<number>(0); // 예산 상태 추가
+  const [budget, setBudget] = useState<number >(0); // 예산 상태 추가
   const loaderRef = useRef<HTMLDivElement | null>(null);
   const [totalSpent,setTotalSpent] =useState(0);
   const navigate = useNavigate();
@@ -91,8 +91,10 @@ const JejuPage: React.FC = () => {
       setExpenses(updatedList);
 
       // 예산은 지출을 추가했을 때 자동으로 업데이트 (예산 - 지출 금액)
-      const newBudget = budget - expense.amount;
-      setBudget(newBudget); // 예산 상태 갱신
+      if (budget !== null) {
+        const newBudget = budget - expense.amount;
+        setBudget(newBudget);
+      }
 
     } catch (err) {
       console.error('지출 추가 실패', err);

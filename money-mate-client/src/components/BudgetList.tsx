@@ -15,10 +15,9 @@ export interface BudgetListProps {
 
 const BudgetList: React.FC<BudgetListProps> = ({ category, budget, setBudget,totalSpent}) => {
   const [isEditing, setIsEditing] = useState<boolean>(budget === 0); // 예산이 없으면 편집 모드
-  const [spndPrice, setSpndPrice] = useState<number>(0);
   const [expenses, setExpenses] = useState([]); // 🔥 지출 데이터 상태 추가
   const [inputAmount, setInputAmount] = useState<number>(budget);
-  const remain = budget - totalSpent;
+  const remain = budget !== null ? budget - totalSpent : 0;
 
   const handleSave = async () => {
     try {
@@ -39,7 +38,8 @@ const BudgetList: React.FC<BudgetListProps> = ({ category, budget, setBudget,tot
   };
 
   useEffect(() => {
-    setIsEditing(budget === 0);
+    setIsEditing(budget === 1);
+    console.log('adf');
   }, [budget]);
 
   return (
@@ -51,17 +51,16 @@ const BudgetList: React.FC<BudgetListProps> = ({ category, budget, setBudget,tot
           <input
             type="number"
             placeholder='0'
-            value={inputAmount}
             onChange={(e) => setInputAmount(Number(e.target.value))}
           />
           <button onClick={handleSave}>저장</button>
           
         </div>
-        <button onClick={() =>setIsEditing(false)} >수정 안하기</button>
+        <button className='notedit' onClick={() =>setIsEditing(false)} >수정 안하기</button>
         </>
       ) : (
         <div>
-          <p>예산 : {budget.toLocaleString()}원</p>
+          <p>예산 : {budget?.toLocaleString()}원</p>
           <EditIcon/>
           <button onClick={() => setIsEditing(true)}>예산 수정하기</button>
           <div className='rest'>남은 예산 : {remain}</div>

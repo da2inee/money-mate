@@ -17,7 +17,7 @@ interface Expense {
 export interface ExpenseListProps {
   expenses: Expense[];
   onDelete: () => void;
-  budget: number;
+  budget: number|null;
   setTotalSpent: (n: number) => void;
 }
 
