@@ -53,7 +53,7 @@ const BudgetList: React.FC<BudgetListProps> = ({ category, budget, setBudget,tot
             placeholder='0'
             onChange={(e) => setInputAmount(Number(e.target.value))}
           />
-          <button onClick={handleSave}>저장</button>
+          <button className='save' onClick={handleSave}>저장</button>
           
         </div>
         <button className='notedit' onClick={() =>setIsEditing(false)} >수정 안하기</button>
