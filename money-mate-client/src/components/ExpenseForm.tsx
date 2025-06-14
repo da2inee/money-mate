@@ -22,12 +22,18 @@ const ExpenseForm: React.FC<Props> = ({ onAdd }) => {
 
   return (
     <form className='expense-form' onSubmit={handleSubmit}>
+      <div className='inputform'>
+        지출 항목
+      </div>
       <input 
         placeholder="지출 항목"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         required
       />
+      <div className='inputform'>
+        지출 금액
+      </div>
       <input
         placeholder="금액"
         type="number"
@@ -35,6 +41,9 @@ const ExpenseForm: React.FC<Props> = ({ onAdd }) => {
         onChange={(e) => setAmount(e.target.value)}
         required
       />
+      <div className='inputform'>
+        지출자
+      </div>
       <input
         placeholder="지출자"
         value={payer}

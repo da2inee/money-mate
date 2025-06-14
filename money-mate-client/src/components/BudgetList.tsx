@@ -60,10 +60,10 @@ const BudgetList: React.FC<BudgetListProps> = ({ category, budget, setBudget,tot
         </>
       ) : (
         <div>
-          <p>예산 : {budget?.toLocaleString()}원</p>
+          <p>예산 : {budget?.toLocaleString()} 원</p>
           <EditIcon/>
           <button onClick={() => setIsEditing(true)}>예산 수정하기</button>
-          <div className='rest'>남은 예산 : {remain}</div>
+          <div className='rest'>남은 예산 : {remain} 원</div>
         </div>
       )}
 
