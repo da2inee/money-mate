@@ -22,7 +22,7 @@ export interface ExpenseResponse {
 export const addExpense = async (expense: ExpenseRequest): Promise<void> => {
     await axios.post(`${API_BASE_URL}/expenses`, expense);
 };
-  
+   
 
 export const getExpenses = async (category?: string): Promise<ExpenseResponse[]> => {
     const response = await axios.get(`${API_BASE_URL}/expenses`, {
@@ -35,4 +35,3 @@ export const deleteExpenses = async (id?: number): Promise<void> => {
     await axios.delete(`${API_BASE_URL}/expenses/${id}`, {
     });
 };
-  

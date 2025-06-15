@@ -4,9 +4,10 @@ import ExpenseForm from '../components/ExpenseForm';
 import ExpenseList from '../components/ExpenseList';
 import BudgetList from '../components/BudgetList';
 import { addExpense, getExpenses } from '../api/expenseApi';
-import { getBudgets } from '../api/budgetApi'; // 예산 관련 API 호출
+import { getBudgets , whoExpenses} from '../api/budgetApi'; // 예산 관련 API 호출
 import './JejuPage.css';
 import MButton from '../components/common/MButton';
+import { Input } from '@mui/material';
 
 //프론트 내에서 사용하는 Expense 타입 정의
 interface Expense {
@@ -26,6 +27,7 @@ const JejuPage: React.FC = () => {
   const [budget, setBudget] = useState<number >(0); // 예산 상태 추가
   const loaderRef = useRef<HTMLDivElement | null>(null);
   const [totalSpent,setTotalSpent] =useState(0);
+  const [goWith,setGoWith] = useState('');
   const navigate = useNavigate();
 
   const getTotalPerPerson = (expenses: Expense[]) => {
@@ -100,6 +102,16 @@ const JejuPage: React.FC = () => {
       console.error('지출 추가 실패', err);
     }
   };
+  const handleName = async (name: string, category: string) => {
+    console.log(name);
+    console.log(category);
+    try {
+      await whoExpenses(category, name);
+      setGoWith(name);
+      console.log(goWith);
+    } catch (error) {
+    }
+  };
 
   return (
   <div className="jeju-page-container">
@@ -115,8 +127,6 @@ const JejuPage: React.FC = () => {
       </div>
       <h1 className="title">{category?.toUpperCase()} 여행 지출 관리</h1>
     </div>
-
-
     <div className="budget-expense-section">
       {category && (
         <BudgetList
@@ -126,10 +136,21 @@ const JejuPage: React.FC = () => {
           totalSpent={totalSpent}
         />
       )}
+    <div >
+        WITH
+        <input
+        className='with'
+        placeholder='같이 간 사람'
+        value={goWith}
+        onChange={(e) => setGoWith(e.target.value)}
+        />
+        <button onClick={() => handleName(goWith, category??'')}>
+          저장
+        </button>
+    </div>
 
       <ExpenseForm onAdd={handleAddExpense} />
     </div>
-
     <div className="expense-list-wrapper">
       <h2>지출 내역</h2>
       <ExpenseList

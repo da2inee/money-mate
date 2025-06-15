@@ -38,4 +38,9 @@ export const updateBudget = async (category: string, inputAmount: number) => {
       throw error;
     }
   };
+
+export const whoExpenses = async (category: string, name: string): Promise<void> => {
+    await axios.post(`${API_BASE_URL}/${category}`, name);
+};
+  
   
