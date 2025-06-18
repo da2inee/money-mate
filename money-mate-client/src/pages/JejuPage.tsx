@@ -4,7 +4,8 @@ import ExpenseForm from '../components/ExpenseForm';
 import ExpenseList from '../components/ExpenseList';
 import BudgetList from '../components/BudgetList';
 import { addExpense, getExpenses } from '../api/expenseApi';
-import { getBudgets , whoExpenses} from '../api/budgetApi'; // 예산 관련 API 호출
+import { getBudgets } from '../api/budgetApi'; // 예산 관련 API 호출
+import {whoExpenses} from '../api/travelerApi'; // 예산 관련 API 호출
 import './JejuPage.css';
 import MButton from '../components/common/MButton';
 import { Input } from '@mui/material';

@@ -39,8 +39,5 @@ export const updateBudget = async (category: string, inputAmount: number) => {
     }
   };
 
-export const whoExpenses = async (category: string, name: string): Promise<void> => {
-    await axios.post(`${API_BASE_URL}/${category}`, name);
-};
-  
+
   

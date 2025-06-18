@@ -5,9 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.money_mate_server.mapper.TravelerMapper;
-import com.example.money_mate_server.model.Expense;
-
-import java.util.List;
 
 @Service
 public class TravelerService {
@@ -15,8 +12,8 @@ public class TravelerService {
     @Autowired
     private TravelerMapper travelerMapper;
 
-    public String saveName(String name ) {
-        travelerMapper.insertTraveler(name);
+    public String saveTravelerName(String name ) {
+        travelerMapper.saveName(name);
     return name;
     }
 }
