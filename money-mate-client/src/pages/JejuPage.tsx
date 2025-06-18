@@ -108,7 +108,8 @@ const JejuPage: React.FC = () => {
     try {
       await whoExpenses(category, name);
       setGoWith(name);
-      console.log(goWith);
+      setGoWith('');
+      console.log(goWith);   
     } catch (error) {
     }
   };

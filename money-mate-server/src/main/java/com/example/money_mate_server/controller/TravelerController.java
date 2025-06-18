@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.money_mate_server.model.Expense;
+import com.example.money_mate_server.dto.TravelerRequest;
 import com.example.money_mate_server.service.TravelerService;
 
 
@@ -18,8 +18,13 @@ public class TravelerController {
     private TravelerService travelerService;
 
     @PostMapping
-    public ResponseEntity<String> createExpense(@RequestBody String name, String category) {
+    public ResponseEntity<String> createTraveler(@RequestBody TravelerRequest request) {
+        String name=request.getName();
+        String category=request.getCategory();
+
         String savedName = travelerService.saveName(name);
+        System.out.println("savedName: " + savedName);
+        System.out.println("category: " + category);
         return ResponseEntity.ok(savedName);
     }
 }
