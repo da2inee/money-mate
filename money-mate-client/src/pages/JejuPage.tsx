@@ -150,6 +150,11 @@ const JejuPage: React.FC = () => {
           저장
         </button>
     </div>
+      <div>
+        같이 간 사람
+        {}
+        
+      </div>
 
       <ExpenseForm onAdd={handleAddExpense} />
     </div>
