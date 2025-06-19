@@ -7,8 +7,9 @@ export const whoExpenses = async (category: string, name: string): Promise<void>
     await axios.post(`${API_BASE_URL}`, {name,category});
 };
 
-export const getWhoExpenses = async (category?: string): Promise<void> => {
-    await axios.get(`${API_BASE_URL}`,{
+export const getWhoExpenses = async (category?: string): Promise<string[]> => {
+    const response = await axios.get(`${API_BASE_URL}`,{
       params: category ? { category } : {},
     });
+    return response.data;
 };

@@ -4,6 +4,7 @@ import ExpenseForm from '../components/ExpenseForm';
 import ExpenseList from '../components/ExpenseList';
 import BudgetList from '../components/BudgetList';
 import { addExpense, getExpenses } from '../api/expenseApi';
+import { getWhoExpenses } from '../api/travelerApi';
 import { getBudgets } from '../api/budgetApi'; // 예산 관련 API 호출
 import {whoExpenses} from '../api/travelerApi'; // 예산 관련 API 호출
 import './JejuPage.css';
@@ -29,6 +30,7 @@ const JejuPage: React.FC = () => {
   const loaderRef = useRef<HTMLDivElement | null>(null);
   const [totalSpent,setTotalSpent] =useState(0);
   const [goWith,setGoWith] = useState('');
+  const [whoList, setWhoList] = useState<string[]>([]);
   const navigate = useNavigate();
 
   const getTotalPerPerson = (expenses: Expense[]) => {
@@ -61,12 +63,14 @@ const JejuPage: React.FC = () => {
   
           // budgetData가 객체 형태라면
           if (budgetData && budgetData.totalAmount !== undefined) {
-            setBudget(budgetData.totalAmount); // 카테고리별 예산 값 설정
-            
-          } else {
-            
+            setBudget(budgetData.totalAmount); // 카테고리별 예산 값 설정         
+          } else {     
             setBudget(0); // 예산이 없으면 0으로 설정
           }
+
+          const whoData = await getWhoExpenses(category);
+          setWhoList(whoData);
+
   
         } catch (err) {
           console.error('지출 목록 불러오기 실패', err);
@@ -150,11 +154,19 @@ const JejuPage: React.FC = () => {
           저장
         </button>
     </div>
-      <div>
-        같이 간 사람
-        {}
-        
-      </div>
+      {/* 같이 간 사람들 보여주기 */}
+      <section>
+        <h3>같이 간 사람</h3>
+        {whoList.length === 0 ? (
+          <p>등록된 사람이 없어요.</p>
+        ) : (
+          <ul>
+            {whoList.map((name) => (
+              <li key={name}>{name}</li>
+            ))}
+          </ul>
+        )}
+      </section>
 
       <ExpenseForm onAdd={handleAddExpense} />
     </div>
