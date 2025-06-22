@@ -11,5 +11,11 @@
       VALUES (#{category}, #{name})
     </insert>
 
+    <select id="findNamesByCategory" parameterType="string" resultType="string">
+      SELECT name
+      FROM travelers
+      WHERE category = #{category}
+     </select>
+
 
 </mapper>

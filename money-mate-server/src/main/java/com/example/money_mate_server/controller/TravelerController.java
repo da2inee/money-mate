@@ -1,11 +1,14 @@
 package com.example.money_mate_server.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.money_mate_server.dto.TravelerRequest;
 import com.example.money_mate_server.service.TravelerService;
+
 
 
 
@@ -27,4 +30,14 @@ public class TravelerController {
         System.out.println("category: " + category);
         return ResponseEntity.ok(savedName);
     }
+
+    @GetMapping
+    public ResponseEntity<List<String>> getTravelerNames(@RequestParam String category) {
+        List<String> names = travelerService.getTravelerNamesByCategory(category);
+                System.out.println("savedName2: " + names);
+
+        return ResponseEntity.ok(names);
+    }
+
+    
 }
