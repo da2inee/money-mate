@@ -34,8 +34,6 @@ public class TravelerController {
     @GetMapping
     public ResponseEntity<List<String>> getTravelerNames(@RequestParam String category) {
         List<String> names = travelerService.getTravelerNamesByCategory(category);
-                System.out.println("savedName2: " + names);
-
         return ResponseEntity.ok(names);
     }
 

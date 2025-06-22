@@ -21,7 +21,6 @@ public class TravelerService {
 
     public List<String> getTravelerNamesByCategory(String category) {
     // 예: DB에서 category 기준으로 이름들 가져오기
-        System.out.println(travelerMapper.findNamesByCategory(category));
     return travelerMapper.findNamesByCategory(category);
     }
 
