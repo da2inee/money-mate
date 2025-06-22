@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface TravelerMapper {
-    void saveName(String name);
+    void saveName(String name, String category);
     
     List<String> findNamesByCategory(@Param("category") String category);
 

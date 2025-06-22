@@ -25,7 +25,7 @@ public class TravelerController {
         String name=request.getName();
         String category=request.getCategory();
 
-        String savedName = travelerService.saveTravelerName(name);
+        String savedName = travelerService.saveTravelerName(name,category );
         System.out.println("savedName: " + savedName);
         System.out.println("category: " + category);
         return ResponseEntity.ok(savedName);

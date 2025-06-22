@@ -14,8 +14,8 @@ public class TravelerService {
     @Autowired
     private TravelerMapper travelerMapper;
 
-    public String saveTravelerName(String name ) {
-        travelerMapper.saveName(name);
+    public String saveTravelerName(String name, String category ) {
+        travelerMapper.saveName(name, category);
     return name;
     }
 
