@@ -70,6 +70,7 @@ const JejuPage: React.FC = () => {
 
           const whoData = await getWhoExpenses(category);
           setWhoList(whoData);
+          console.log('who',whoData);
 
   
         } catch (err) {
@@ -108,16 +109,17 @@ const JejuPage: React.FC = () => {
     }
   };
   const handleName = async (name: string, category: string) => {
-    console.log(name);
-    console.log(category);
     try {
-      await whoExpenses(category, name);
-      setGoWith(name);
-      setGoWith('');
-      console.log(goWith);   
+      await whoExpenses(category, name);         // 저장하고
+      const updated = await getWhoExpenses(category); // 다시 불러오기
+      setWhoList(updated);                       // 상태 갱신
+      setGoWith('');                             // 입력창 초기화
+      console.log('업데이트된 리스트:', updated);
     } catch (error) {
+      console.error('저장 또는 조회 실패', error);
     }
   };
+
 
   return (
   <div className="jeju-page-container">

@@ -11,5 +11,6 @@ export const getWhoExpenses = async (category?: string): Promise<string[]> => {
     const response = await axios.get(`${API_BASE_URL}`,{
       params: category ? { category } : {},
     });
+    console.log('조회',response);
     return response.data;
 };
