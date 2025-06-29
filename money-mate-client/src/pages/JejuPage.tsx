@@ -127,8 +127,6 @@ const JejuPage: React.FC = () => {
       <div className="back-button">
         <MButton label="뒤로가기" variant="BACK" onClick={() => navigate(-1)}
           sx={{
-            fontSize: '14px',
-            padding: '4px 8px',
             minWidth: 'auto',
             height: '32px',
           }} />

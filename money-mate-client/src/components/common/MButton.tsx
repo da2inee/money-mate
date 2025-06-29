@@ -25,13 +25,13 @@ const variantStyles: Record<ButtonVariant, SxProps<Theme>> = {
   },
   BACK: {
     color: grey[800],
-    border: '1px solid #ccc',
-    backgroundColor: 'transparent',
+    border: '1px solid lightgray',
     fontSize: '15px',
     padding: '6px 12px',
     display: 'flex',
     alignItems: 'center',
-    gap: '6px',
+    gap: '3px',
+    width: '100%',
     justifyContent: 'left',
     '&:hover': {
       backgroundColor: grey[200],
