@@ -36,4 +36,8 @@
         WHERE id = #{id}
     </update>
 
+    <!-- 삭제 -->
+    <delete id="deleteName">
+        DELETE FROM travelers WHERE id = #{id}
+    </delete>
 </mapper>

@@ -13,4 +13,5 @@ public interface ExpenseMapper {
     void insertExpense(Expense expense);
     void deleteExpense(int id);
     void updateExpense(Expense expense);
+    void deleteName(int id);
 }

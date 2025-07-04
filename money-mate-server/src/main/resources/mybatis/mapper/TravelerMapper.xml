@@ -11,11 +11,10 @@
       VALUES (#{category}, #{name})
     </insert>
 
-    <select id="findNamesByCategory" parameterType="string" resultType="string">
-      SELECT name
-      FROM travelers
-      WHERE category = #{category}
-     </select>
+  <select id="findNamesByCategory" resultType="com.example.money_mate_server.dto.TravelerDto">
+    SELECT id, name FROM traveler WHERE category = #{category}
+  </select>
+
 
 
 </mapper>

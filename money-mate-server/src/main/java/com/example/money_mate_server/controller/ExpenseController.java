@@ -51,6 +51,12 @@ public class ExpenseController {
         return ResponseEntity.noContent().build(); // 204 응답
     }
 
+        // (3) 지출 삭제
+    @DeleteMapping("/{name}")
+    public ResponseEntity<Void> deleteName(@PathVariable int id) {
+        expenseService.deleteName(id);
+        return ResponseEntity.noContent().build(); // 204 응답
+    }
 
 }
  

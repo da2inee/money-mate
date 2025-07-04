@@ -34,4 +34,8 @@ public class ExpenseService {
         expenseMapper.deleteExpense(id);
     }
 
+    public void deleteName(int id) {
+        expenseMapper.deleteName(id);
+    }
+
 }

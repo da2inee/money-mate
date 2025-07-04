@@ -19,6 +19,11 @@ interface Expense {
   amount: number;
   payer: string;
 }
+
+interface Who {
+  id: number;
+  name: string;
+}
 const PAGE_SIZE=5;
 
 //JejuPage는 함수형 컴포넌트
@@ -30,7 +35,7 @@ const JejuPage: React.FC = () => {
   const loaderRef = useRef<HTMLDivElement | null>(null);
   const [totalSpent,setTotalSpent] =useState(0);
   const [goWith,setGoWith] = useState('');
-  const [whoList, setWhoList] = useState<string[]>([]);
+  const [whoList, setWhoList] = useState<Who[]>([]);
   const navigate = useNavigate();
 
   const getTotalPerPerson = (expenses: Expense[]) => {
@@ -120,15 +125,20 @@ const JejuPage: React.FC = () => {
     }
   };
 
-  const handleDelete = async (name: string) => {
+  const handleDelete = async (id: number) => {
     const confirmDelete = window.confirm("정말 삭제하시겠습니까?");
     if (!confirmDelete) return;
 
     try {
-      await deleteName(name);
+      await deleteName(id);
     } catch (error) {
     }
   };
+
+  useEffect(() => {
+                console.log('sdf',whoList);
+
+  },[])
   return (
   <div className="jeju-page-container">
     <div className="header">
@@ -169,9 +179,9 @@ const JejuPage: React.FC = () => {
           <p>등록된 사람이 없어요.</p>
         ) : (
           <ul>
-            {whoList.map((name) => (
-              <Typography key={name}>{name}            
-              <button className='delete' onClick={() => handleDelete(name)}>
+            {whoList.map((who) => (
+              <Typography key={who.id}>{who.name}            
+              <button className='delete' onClick={() => handleDelete(who.id)}>
                 삭제
               </button>
               </Typography>
