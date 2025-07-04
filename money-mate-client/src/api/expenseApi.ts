@@ -37,6 +37,6 @@ export const deleteExpenses = async (id?: number): Promise<void> => {
 };
 
 export const deleteName = async (id?: number): Promise<void> => {
-    await axios.delete(`${API_BASE_URL}/expenses/${id}`, {
+    await axios.delete(`${API_BASE_URL}/expenses/category/${id}`, {
     });
 };

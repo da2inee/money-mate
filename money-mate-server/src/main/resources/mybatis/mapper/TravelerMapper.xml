@@ -12,7 +12,7 @@
     </insert>
 
   <select id="findNamesByCategory" resultType="com.example.money_mate_server.dto.TravelerDto">
-    SELECT id, name FROM traveler WHERE category = #{category}
+    SELECT id, name FROM travelers WHERE category = #{category}
   </select>
 
 

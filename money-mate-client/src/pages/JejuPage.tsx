@@ -65,17 +65,18 @@ const JejuPage: React.FC = () => {
             });   // 상태에 저장
           // 예산 가져오기
           const budgetData = await getBudgets(category); // 예산 데이터 가져오기
-  
+            console.log('asfafasdf')
           // budgetData가 객체 형태라면
           if (budgetData && budgetData.totalAmount !== undefined) {
             setBudget(budgetData.totalAmount); // 카테고리별 예산 값 설정         
           } else {     
             setBudget(0); // 예산이 없으면 0으로 설정
           }
+          console.log('whoListㄴ');
 
           const whoData = await getWhoExpenses(category);
           setWhoList(whoData);
-          console.log('who',whoData);
+          console.log('whoList',whoData);
 
   
         } catch (err) {
@@ -131,6 +132,9 @@ const JejuPage: React.FC = () => {
 
     try {
       await deleteName(id);
+      const updated = await getWhoExpenses(category ?? ''); // 삭제 후 최신 리스트 불러오기
+      setWhoList(updated);               // 상태 갱신하여 UI 리렌더링
+
     } catch (error) {
     }
   };
