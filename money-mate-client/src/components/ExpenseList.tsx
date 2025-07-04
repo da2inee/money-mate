@@ -5,6 +5,7 @@ import { deleteExpenses } from '../api/expenseApi';
 import { useEffect } from 'react'; // useEffect import
 import BudgetList from './BudgetList';
 import { BudgetListProps } from './BudgetList';
+import { Typography } from '@mui/material';
 
 interface Expense {
   id: number;
@@ -45,8 +46,9 @@ const ExpenseList: React.FC<ExpenseListProps> = ({ expenses, onDelete, budget , 
         <li key={expense.id}>
           <div className="expense-item">
             <h3>{expense.title}</h3>
-            <p>금액: {expense.amount}원 지불자: {expense.payer}</p>
-            <button className="delete" onClick={() => handleDelete(expense.id)}>삭제</button>
+            <Typography>금액: {expense.amount}원 </Typography>
+             <Typography> 지불자: {expense.payer}</Typography>
+            <button  onClick={() => handleDelete(expense.id)}>삭제</button>
           </div>
         </li>
       ))}
