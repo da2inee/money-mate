@@ -3,13 +3,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 import ExpenseForm from '../components/ExpenseForm';
 import ExpenseList from '../components/ExpenseList';
 import BudgetList from '../components/BudgetList';
-import { addExpense, getExpenses } from '../api/expenseApi';
+import { addExpense, getExpenses,deleteName } from '../api/expenseApi';
 import { getWhoExpenses } from '../api/travelerApi';
 import { getBudgets } from '../api/budgetApi'; // 예산 관련 API 호출
 import {whoExpenses} from '../api/travelerApi'; // 예산 관련 API 호출
 import './JejuPage.css';
 import MButton from '../components/common/MButton';
-import { Input } from '@mui/material';
+import { Input, Typography } from '@mui/material';
 
 //프론트 내에서 사용하는 Expense 타입 정의
 interface Expense {
@@ -120,7 +120,15 @@ const JejuPage: React.FC = () => {
     }
   };
 
+  const handleDelete = async (name: string) => {
+    const confirmDelete = window.confirm("정말 삭제하시겠습니까?");
+    if (!confirmDelete) return;
 
+    try {
+      await deleteName(name);
+    } catch (error) {
+    }
+  };
   return (
   <div className="jeju-page-container">
     <div className="header">
@@ -162,7 +170,11 @@ const JejuPage: React.FC = () => {
         ) : (
           <ul>
             {whoList.map((name) => (
-              <li key={name}>{name}</li>
+              <Typography key={name}>{name}            
+              <button className='delete' onClick={() => handleDelete(name)}>
+                삭제
+              </button>
+              </Typography>
             ))}
           </ul>
         )}

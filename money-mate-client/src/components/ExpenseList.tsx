@@ -48,7 +48,7 @@ const ExpenseList: React.FC<ExpenseListProps> = ({ expenses, onDelete, budget , 
             <h3>{expense.title}</h3>
             <Typography>금액: {expense.amount}원 </Typography>
              <Typography> 지불자: {expense.payer}</Typography>
-            <button  onClick={() => handleDelete(expense.id)}>삭제</button>
+            <button className='delete' onClick={() => handleDelete(expense.id)}>삭제</button>
           </div>
         </li>
       ))}
