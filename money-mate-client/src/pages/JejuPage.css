@@ -84,3 +84,7 @@
 .delete{
   margin-left: 3%;
 }
+.total{
+  align-items: end;
+  font-weight: bold;
+}

@@ -211,6 +211,9 @@ const JejuPage: React.FC = () => {
 
     <div className="summary-section">
       <h2>💰 정산 요약</h2>
+      <h3 className='total'>
+        개인 사용 금액
+      </h3>
       <ul className="summary-list">
         {Object.entries(totalPerPerson).map(([name, total]) => (
           <li key={name} className="summary-item">
