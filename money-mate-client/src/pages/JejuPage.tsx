@@ -32,6 +32,8 @@ const JejuPage: React.FC = () => {
   //지출내역을 저장하는 상태(expenses)를 생성하고, 초기값은 빈 배열임
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [budget, setBudget] = useState<number >(0); // 예산 상태 추가
+  const [startDate, setStartDate] = useState<string>('');
+  const [endDate, setEndDate] = useState<string>('');
   const loaderRef = useRef<HTMLDivElement | null>(null);
   const [totalSpent,setTotalSpent] =useState(0);
   const [goWith,setGoWith] = useState('');
@@ -68,12 +70,14 @@ const JejuPage: React.FC = () => {
             console.log('asfafasdf')
           // budgetData가 객체 형태라면
           if (budgetData && budgetData.totalAmount !== undefined) {
-            setBudget(budgetData.totalAmount); // 카테고리별 예산 값 설정         
+            setBudget(budgetData.totalAmount); // 카테고리별 예산 값 설정   
+            if(budgetData.startDate) setStartDate(budgetData.startDate);
+            if(budgetData.endDate) setEndDate(budgetData.endDate);
+                  
           } else {     
             setBudget(0); // 예산이 없으면 0으로 설정
           }
           console.log('whoListㄴ');
-
           const whoData = await getWhoExpenses(category);
           setWhoList(whoData);
           console.log('whoList',whoData);
@@ -156,6 +160,13 @@ const JejuPage: React.FC = () => {
       <h1 className="title">{category?.toUpperCase()} 여행 지출 관리</h1>
     </div>
     <div className="budget-expense-section">
+      {startDate && endDate && (
+        <Typography>
+          여행 날짜 : {startDate} ~ {endDate}
+        </Typography>
+      )
+
+      }
       {category && (
         <BudgetList
           category={category}

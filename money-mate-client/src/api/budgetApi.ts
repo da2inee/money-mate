@@ -16,7 +16,7 @@ export const createBudget = async (budget: { category: string; totalAmount: numb
 };
 
 // 예산 목록 가져오기
-export const getBudgets = async (category: string): Promise<{ totalAmount: number }> => {
+export const getBudgets = async (category: string): Promise<{ totalAmount: number, startDate: string,endDate: string  }> => {
     try {
       const response = await axios.get(`${API_BASE_URL}/${category}`);
       console.log("성공")
