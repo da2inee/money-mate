@@ -44,7 +44,15 @@ public class ExpenseController {
         return ResponseEntity.ok(savedExpense);
     }
 
-    // (3) 지출 삭제
+    // (3) 지출 수정
+    @PutMapping("/{id}")
+    public ResponseEntity<Expense> updateExpense(@PathVariable int id, @RequestBody Expense expense) {
+        expense.setId((long) id);
+        Expense updated = expenseService.updateExpense(expense);
+        return ResponseEntity.ok(updated);
+    }
+
+    // (4) 지출 삭제
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteExpense(@PathVariable int id) {
         expenseService.deleteExpense(id);

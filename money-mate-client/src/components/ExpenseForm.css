@@ -1,17 +1,135 @@
 .expense-form {
-    display: flex;
-    flex-direction: row;
-    gap: 15px; /* 각 input 사이의 간격 */
-    max-width: 100%;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    justify-content: center;
-  }
-  
-
-.inputform{
-  font-size: small;
-  display: inline-block;
-  margin-left: 2%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 100%;
+  padding: 28px;
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border);
+  transition: box-shadow var(--transition-normal);
 }
-  
+
+.expense-form:hover {
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--color-border-strong);
+}
+
+.expense-form .form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: flex-end;
+}
+
+.expense-form .field-group {
+  flex: 1;
+  min-width: 120px;
+}
+
+.expense-form .field-group label {
+  display: block;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+
+.expense-form .field-group input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text);
+  background: var(--color-bg);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.expense-form .field-group input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-soft);
+}
+
+.expense-form .field-group input::placeholder {
+  color: var(--color-text-soft);
+}
+
+.expense-form .quick-amounts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.expense-form .quick-amount-btn {
+  padding: 10px 18px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-2);
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.expense-form .quick-amount-btn:hover {
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+}
+
+.expense-form .quick-amount-btn:active {
+  transform: scale(0.97);
+}
+
+.expense-form .submit-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.expense-form button[type="submit"] {
+  padding: 18px 34px;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #0f172a;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  transition: transform var(--transition-fast), box-shadow var(--transition-normal);
+  box-shadow: var(--shadow-button);
+}
+
+.expense-form button[type="submit"]:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.45);
+}
+
+.expense-form button[type="submit"]:active {
+  transform: translateY(0);
+}
+
+/* 엑셀 업로드 영역 */
+.expense-form .excel-upload {
+  margin-top: 10px;
+}
+
+.expense-form .excel-upload .MuiFormControl-root {
+  width: 100%;
+}
+
+.expense-form .excel-upload .MuiOutlinedInput-root {
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+}

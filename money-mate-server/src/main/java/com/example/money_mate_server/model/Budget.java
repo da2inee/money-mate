@@ -1,9 +1,14 @@
 package com.example.money_mate_server.model;
 
+import java.time.LocalDate;
+
 public class Budget {
     private Long id;
     private String category;
     private int totalAmount;
+
+    private LocalDate startDate; // 추가
+    private LocalDate endDate;   // 추가
 
     // 기본 생성자
     public Budget() {}
@@ -39,5 +44,20 @@ public class Budget {
 
     public void setTotalAmount(int totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public LocalDate getStartDate() { 
+        return startDate; 
+    }
+
+    public void setStartDate(LocalDate startDate) { 
+        this.startDate = startDate; 
+    }
+
+    public LocalDate getEndDate() { 
+        return endDate; 
+    }
+    public void setEndDate(LocalDate endDate) { 
+        this.endDate = endDate;
     }
 }

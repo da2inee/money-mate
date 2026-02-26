@@ -3,6 +3,7 @@ package com.example.money_mate_server.controller;
 import com.example.money_mate_server.dto.BudgetUpdateRequest;
 import com.example.money_mate_server.model.Budget;
 import com.example.money_mate_server.service.BudgetService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,17 +44,16 @@ public class BudgetController {
     }
 
     // 예산 업데이트
-   @PutMapping("/{category}")
+    @PutMapping("/{category}")
     public ResponseEntity<String> updateBudget(
             @PathVariable String category,
             @RequestBody BudgetUpdateRequest request) {
-        
         Budget budget = new Budget();
         budget.setCategory(category);
         budget.setTotalAmount(request.getInputAmount());
-
+        budget.setStartDate(request.getStartDate());
+        budget.setEndDate(request.getEndDate());
         budgetService.saveBudget(budget);
-
         return ResponseEntity.ok("예산 업데이트 완료");
     }
 }

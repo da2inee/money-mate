@@ -1,90 +1,113 @@
-// src/components/common/MyButton.tsx
+// src/components/common/MButton.tsx
 import React from 'react';
 import Button from '@mui/material/Button';
 import { SxProps } from '@mui/system';
 import { Theme } from '@mui/material/styles';
-import { grey } from '@mui/material/colors';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'; // 추가
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-type ButtonVariant = 'BACK' | 'CATEGORY' | 'DESCRIPTION' | 'NEXT' | 'CORRECT' | 'PRIMARY'; 
+type ButtonVariant = 'BACK' | 'CATEGORY' | 'DESCRIPTION' | 'NEXT' | 'CORRECT' | 'PRIMARY';
 
 interface MButtonProps {
   label: string;
   onClick: () => void;
   variant?: ButtonVariant;
-  sx?: SxProps<Theme>; // 추가 스타일 override 가능
+  sx?: SxProps<Theme>;
 }
 
 const variantStyles: Record<ButtonVariant, SxProps<Theme>> = {
   CATEGORY: {
-    backgroundColor: '#FFB6B9',
-    color: '#fff',
+    background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+    color: '#0f172a',
+    boxShadow: '0 4px 16px rgba(245, 158, 11, 0.35)',
     '&:hover': {
-      backgroundColor: '#FF8C94',
+      background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
+      boxShadow: '0 6px 20px rgba(245, 158, 11, 0.45)',
+      transform: 'translateY(-2px)',
     },
   },
   BACK: {
-    color: grey[800],
-    border: '1px solid lightgray',
-    fontSize: '15px',
-    padding: '6px 12px',
+    color: '#94a3b8',
+    border: 'none',
+    backgroundColor: 'transparent',
+    fontSize: '0.9375rem',
+    fontWeight: 600,
+    padding: '10px 16px',
     display: 'flex',
     alignItems: 'center',
-    gap: '3px',
-    width: '100%',
-    justifyContent: 'left',
+    gap: '8px',
+    minWidth: 'auto',
+    justifyContent: 'flex-start',
+    borderRadius: '14px',
+    transition: 'all 0.2s ease',
     '&:hover': {
-      backgroundColor: grey[200],
+      backgroundColor: 'rgba(255, 255, 255, 0.06)',
+      color: '#f8fafc',
     },
   },
   DESCRIPTION: {
-    backgroundColor: '#F44336',
-    color: '#fff',
+    background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+    color: '#0f172a',
+    boxShadow: '0 4px 16px rgba(245, 158, 11, 0.35)',
     '&:hover': {
-      backgroundColor: '#D32F2F',
+      background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
+      boxShadow: '0 6px 20px rgba(245, 158, 11, 0.4)',
     },
   },
   NEXT: {
-    backgroundColor: '#F44336',
-    color: '#fff',
+    background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+    color: '#0f172a',
+    boxShadow: '0 4px 16px rgba(245, 158, 11, 0.35)',
     '&:hover': {
-      backgroundColor: '#D32F2F',
+      background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
+      boxShadow: '0 6px 20px rgba(245, 158, 11, 0.4)',
     },
   },
   CORRECT: {
-    backgroundColor: '#F44336',
-    color: '#fff',
+    background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+    color: '#0f172a',
+    boxShadow: '0 4px 16px rgba(245, 158, 11, 0.35)',
     '&:hover': {
-      backgroundColor: '#D32F2F',
+      background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
+      boxShadow: '0 6px 20px rgba(245, 158, 11, 0.4)',
     },
   },
   PRIMARY: {
-    backgroundColor: '#F44336',
-    color: '#fff',
+    background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+    color: '#0f172a',
+    boxShadow: '0 4px 16px rgba(245, 158, 11, 0.35)',
     '&:hover': {
-      backgroundColor: '#D32F2F',
+      background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
+      boxShadow: '0 6px 20px rgba(245, 158, 11, 0.4)',
     },
   },
 } as const;
 
-const MButton: React.FC<MButtonProps>  = ({label, onClick,sx, variant='PRIMARY'}) => {
+const MButton: React.FC<MButtonProps> = ({ label, onClick, sx, variant = 'PRIMARY' }) => {
+  const isBack = variant === 'BACK';
+  const baseSx = {
+    width: isBack ? 'auto' : '200px',
+    height: isBack ? 44 : 52,
+    fontSize: '1rem',
+    fontWeight: 700,
+    borderRadius: '14px',
+    textTransform: 'none' as const,
+    transition: 'transform 0.2s ease, box-shadow 0.25s ease',
+    '&:active': !isBack ? { transform: 'translateY(0)' } : {},
+  };
+  const combinedSx = {
+    ...baseSx,
+    ...(variantStyles[variant] as object),
+    ...(sx && typeof sx === 'object' && !Array.isArray(sx) ? (sx as object) : {}),
+  } as SxProps<Theme>;
   return (
-        <Button
-        variant="text"
-        onClick={onClick}
-        startIcon={variant==='BACK'?<ArrowBackIcon/>:undefined}
-        sx={{
-            width: '200px',
-            height: '50px',
-            fontSize: '16px',
-            borderRadius: '12px',
-            boxShadow: '0px 4px 8px rgba(0,0,0,0.1)',
-            ...variantStyles[variant],
-        }}
-        >
-        {label}
-        </Button>
-
+    <Button
+      variant="text"
+      onClick={onClick}
+      startIcon={variant === 'BACK' ? <ArrowBackIcon sx={{ fontSize: 20 }} /> : undefined}
+      sx={combinedSx}
+    >
+      {label}
+    </Button>
   );
 };
 

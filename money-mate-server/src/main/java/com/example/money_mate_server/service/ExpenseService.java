@@ -30,6 +30,11 @@ public class ExpenseService {
         return expense;
     }
 
+    public Expense updateExpense(Expense expense) {
+        expenseMapper.updateExpense(expense);
+        return expense;
+    }
+
     public void deleteExpense(int id) {
         expenseMapper.deleteExpense(id);
     }

@@ -1,4 +1,277 @@
-.expense-item{
-    flex-direction: row  
+.expense-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
+.expense-list .expense-list-item {
+  animation: expenseItemIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+@keyframes expenseItemIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.expense-list .expense-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 22px 24px;
+  background: var(--color-surface-2);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.expense-list .expense-item:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-border-strong);
+}
+
+.expense-list .expense-item .expense-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.expense-list .expense-item .expense-info h3 {
+  margin: 0 0 6px;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+.expense-list .expense-item .expense-info .meta {
+  display: flex;
+  gap: 12px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.expense-list .expense-item .expense-amount {
+  font-weight: 800;
+  font-size: 1.125rem;
+  color: var(--color-primary);
+}
+
+.expense-list .expense-item-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.expense-list .expense-item .edit-btn {
+  padding: 10px 16px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  background: var(--color-surface);
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.expense-list .expense-item .edit-btn:hover {
+  background: var(--color-primary-soft);
+}
+
+.expense-list .expense-item .edit-btn:active {
+  transform: scale(0.97);
+}
+
+.expense-list .expense-item button.delete {
+  padding: 10px 16px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.expense-list .expense-item button.delete:hover {
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+  background: var(--color-danger-soft);
+}
+
+.expense-list .expense-item button.delete:active {
+  transform: scale(0.97);
+}
+
+/* 지출 수정 모달 */
+.expense-edit-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+  animation: modalOverlayIn 0.2s ease-out;
+}
+
+@keyframes modalOverlayIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.expense-edit-modal {
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: 30px;
+  max-width: 348px;
+  width: 100%;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 28px 56px rgba(0, 0, 0, 0.5);
+  animation: modalIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.expense-edit-title {
+  margin: 0 0 22px;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+.expense-edit-field {
+  margin-bottom: 16px;
+}
+
+.expense-edit-field label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  margin-bottom: 8px;
+}
+
+.expense-edit-field input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 500;
+  box-sizing: border-box;
+  color: var(--color-text);
+  background: var(--color-bg);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.expense-edit-field input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-soft);
+}
+
+.expense-edit-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  justify-content: flex-end;
+}
+
+.expense-edit-cancel,
+.expense-edit-submit {
+  padding: 14px 22px;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.expense-edit-cancel {
+  border: 2px solid var(--color-border);
+  background: var(--color-surface-2);
+  color: var(--color-text-muted);
+}
+
+.expense-edit-cancel:hover {
+  background: var(--color-surface-3);
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
+}
+
+.expense-edit-submit {
+  border: none;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #0f172a;
+  box-shadow: var(--shadow-button);
+}
+
+.expense-edit-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(245, 158, 11, 0.45);
+}
+
+.expense-edit-submit:active {
+  transform: translateY(0);
+}
+
+.expense-list-empty {
+  padding: 56px 32px;
+  text-align: center;
+  background: var(--color-surface-2);
+  border-radius: var(--radius-lg);
+  border: 2px dashed var(--color-border);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.expense-list-empty:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-soft);
+}
+
+.expense-list-empty-icon {
+  display: block;
+  font-size: 3rem;
+  margin-bottom: 16px;
+  opacity: 0.9;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.06));
+}
+
+.expense-list-empty p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.expense-list-empty-hint {
+  margin-top: 8px !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  color: var(--color-text-soft) !important;
+}

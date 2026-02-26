@@ -17,9 +17,10 @@ public class BudgetService {
         Budget existingBudget = budgetMapper.getBudgetByCategory(budget.getCategory());
         System.out.println("카테고리"+budget.getTotalAmount());
         if (existingBudget != null) {
-            // 카테고리가 존재하면 예산 수정
             existingBudget.setTotalAmount(budget.getTotalAmount());
-            budgetMapper.updateBudget(existingBudget);  // 예산 수정
+            existingBudget.setStartDate(budget.getStartDate());
+            existingBudget.setEndDate(budget.getEndDate());
+            budgetMapper.updateBudget(existingBudget);
             System.out.println(existingBudget);
             return existingBudget;
         } else {

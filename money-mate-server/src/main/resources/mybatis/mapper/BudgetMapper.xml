@@ -4,14 +4,16 @@
 
     <!-- 예산 저장 -->
     <insert id="insertBudget" parameterType="com.example.money_mate_server.model.Budget">
-        INSERT INTO budgets (category, totalAmount)
-        VALUES (#{category}, #{totalAmount})
+        INSERT INTO budgets (category, total_amount, start_date, end_date)
+        VALUES (#{category}, #{totalAmount}, #{startDate}, #{endDate})
     </insert>
 
     <!-- 예산 수정 -->
     <update id="updateBudget" parameterType="com.example.money_mate_server.model.Budget">
         UPDATE budgets
-        SET totalAmount = #{totalAmount}
+        SET total_amount = #{totalAmount},
+            start_date = #{startDate},
+            end_date = #{endDate}
         WHERE category = #{category}
     </update>
 

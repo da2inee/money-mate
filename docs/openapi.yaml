@@ -1,0 +1,286 @@
+openapi: 3.0.3
+info:
+  title: MoneyMate API
+  description: 여행별 예산·지출·동행자·정산 관리 REST API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: 개발 서버
+paths:
+  /expenses:
+    get:
+      summary: 지출 목록 조회
+      description: 카테고리별 또는 전체 지출 목록을 반환합니다.
+      operationId: getExpenses
+      parameters:
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+            example: jeju
+          description: 여행(카테고리) 이름. 생략 시 전체 조회
+      responses:
+        '200':
+          description: 성공
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Expense'
+    post:
+      summary: 지출 추가
+      operationId: createExpense
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpenseRequest'
+      responses:
+        '200':
+          description: 저장된 지출
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Expense'
+  /expenses/{id}:
+    put:
+      summary: 지출 수정
+      operationId: updateExpense
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpenseRequest'
+      responses:
+        '200':
+          description: 수정된 지출
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Expense'
+    delete:
+      summary: 지출 삭제
+      operationId: deleteExpense
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: 삭제 완료
+  /expenses/category/{id}:
+    delete:
+      summary: 동행자 삭제
+      description: 동행자(Traveler) 목록에서 해당 id 레코드를 삭제합니다.
+      operationId: deleteName
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: 삭제 완료
+  /budget:
+    post:
+      summary: 예산 생성
+      operationId: createBudget
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BudgetRequest'
+      responses:
+        '200':
+          description: 저장된 예산
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Budget'
+  /budget/{category}:
+    get:
+      summary: 카테고리별 예산 조회
+      operationId: getBudgetByCategory
+      parameters:
+        - name: category
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 예산
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Budget'
+    put:
+      summary: 예산 수정
+      operationId: updateBudget
+      parameters:
+        - name: category
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BudgetUpdateRequest'
+      responses:
+        '200':
+          description: 업데이트 완료
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "예산 업데이트 완료"
+  /category:
+    get:
+      summary: 카테고리별 동행자 목록 조회
+      operationId: getWhoExpenses
+      parameters:
+        - name: category
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 동행자 목록
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TravelerDto'
+    post:
+      summary: 동행자 추가
+      operationId: whoExpenses
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TravelerRequest'
+      responses:
+        '200':
+          description: 저장된 이름 등
+          content:
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    Expense:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        category:
+          type: string
+        title:
+          type: string
+        amount:
+          type: number
+          format: double
+        payer:
+          type: string
+    ExpenseRequest:
+      type: object
+      required:
+        - category
+        - title
+        - amount
+        - payer
+      properties:
+        category:
+          type: string
+        title:
+          type: string
+        amount:
+          type: number
+          format: double
+        payer:
+          type: string
+    Budget:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        category:
+          type: string
+        totalAmount:
+          type: integer
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+    BudgetRequest:
+      type: object
+      required:
+        - category
+        - totalAmount
+      properties:
+        category:
+          type: string
+        totalAmount:
+          type: integer
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+    BudgetUpdateRequest:
+      type: object
+      properties:
+        inputAmount:
+          type: integer
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+    TravelerDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+    TravelerRequest:
+      type: object
+      required:
+        - name
+        - category
+      properties:
+        name:
+          type: string
+        category:
+          type: string

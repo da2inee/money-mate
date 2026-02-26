@@ -1,7 +1,12 @@
-// src/api/travelerApi.ts
+/**
+ * travelerApi.ts - 동행자(같이 간 사람) API
+ *
+ * - whoExpenses: 동행자 추가 POST /category
+ * - getWhoExpenses: 카테고리별 동행자 목록 조회 GET /category?category=
+ */
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080/category'; // 백엔드 URL
+const API_BASE_URL = 'http://localhost:8080/category';
 
 interface Who {
   id: number;
